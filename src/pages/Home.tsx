@@ -1,12 +1,18 @@
 import React from "react";
-import { auth } from "../firebase";
-console.log(auth);
+import ChatButton from "../components/ChatButton";
+import Header from "../components/Header";
+import MainBanner from "../components/home/MainBanner";
+import Layout from "../components/Layout";
 
 const Home = () => {
     return (
-        <div className="w-full h-10 bg-blue-500">
-            {auth.currentUser?.displayName + `님 안녕하세요`}
-        </div>
+        <Layout>
+            <div className="w-full h-full flex flex-col">
+                <Header />
+                <MainBanner />
+                <ChatButton />
+            </div>
+        </Layout>
     );
 }
 
