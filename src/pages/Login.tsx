@@ -27,8 +27,7 @@ const Login = () => {
             navigate("/");
         })
         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
+            alert("이메일과 비밀번호를 확인해 주세요");
         });
     }
     
