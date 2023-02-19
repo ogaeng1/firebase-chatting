@@ -25,6 +25,7 @@ const Login = () => {
             const user = userCredential.user;
             alert(user.email + `님 환영합니다`);
             navigate("/");
+            console.log("일반로그인", user)
         })
         .catch((error) => {
             alert("이메일과 비밀번호를 확인해 주세요");
@@ -40,11 +41,9 @@ const Login = () => {
             if (userData !== undefined) {
                 navigate("/");
             }
+            console.log("구글로그인", userData)
         }).catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            const email = error.customData.email;
-            const credential = GoogleAuthProvider.credentialFromError(error);
+            return error;
         });
     }
 
@@ -57,40 +56,35 @@ const Login = () => {
             if (user !== undefined) {
                 navigate("/");
             }
+            console.log("깃헙로그인", user)
         }).catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            const email = error.customData.email;
-            const credential = GithubAuthProvider.credentialFromError(error);
+            return error;
         });
     }
     
   return (
     <Layout>
-        <div className='w-full h-full flex flex-col'>
-            <Header />
-            <div className='w-full h-full flex flex-col items-center justify-center gap-2 bg-[aliceblue]'>
-                <form onSubmit={onSubmit} className='flex flex-col w-[300px] h-[15%] gap-2'>
-                    <input type="email" required placeholder='이메일을 입력하세요' className='w-full h-full rounded-[10px] px-[5px]' onChange={(e) => {setEmailValue(e.target.value)}} />
-                    <input type="password" required placeholder='비밀번호를 입력하세요' className='w-full h-full rounded-[10px] px-[5px]' onChange={(e) => {setPassWord(e.target.value)}} />
-                    <div className='w-full h-[50px] flex justify-around items-center'>
-                        <button type='submit' className='w-1/2 border border-blue-500'>로그인</button>
-                        <Link to="/signup" className='w-1/2 border border-blue-500 flex justify-center'>
-                            <button>회원가입</button>
-                        </Link>
-                    </div>
-                </form>
-                <hr className="w-[300px] h-[2px] my-[10px] bg-gray-400" />
-                <div onClick={() => setGoogle(true)} className="w-[300px] h-[5%] flex justify-center items-center cursor-pointer border border-gray-900 rounded-[10px] hover:bg-gray-400">
-                    <img src="/images/google.png" alt='' className='w-[25px h-[25px] mr-[10px]'/>
-                    <span>Google 로그인</span>
+        <div className='w-full h-screen flex flex-col items-center justify-center gap-2 bg-[aliceblue]'>
+            <form onSubmit={onSubmit} className='flex flex-col w-[300px] h-[15%] gap-2'>
+                <input type="email" required placeholder='이메일을 입력하세요' className='w-full h-full rounded-[10px] px-[5px]' onChange={(e) => {setEmailValue(e.target.value)}} />
+                <input type="password" required placeholder='비밀번호를 입력하세요' className='w-full h-full rounded-[10px] px-[5px]' onChange={(e) => {setPassWord(e.target.value)}} />
+                <div className='w-full h-[50px] flex justify-around items-center'>
+                    <button type='submit' className='w-1/2 border border-blue-500'>로그인</button>
+                    <Link to="/signup" className='w-1/2 border border-blue-500 flex justify-center'>
+                        <button>회원가입</button>
+                    </Link>
                 </div>
-                <div onClick={() => setGithub(true)} className="w-[300px] h-[5%] flex justify-center items-center cursor-pointer border border-gray-900 rounded-[10px] hover:bg-gray-400">
-                    <img src="/images/github.png" alt='' className='w-[25px h-[25px] mr-[10px] rounded-[50%]'/>
-                    <span>Github 로그인</span>
-                </div>
-            </div>  
-        </div>
+            </form>
+            <hr className="w-[300px] h-[2px] my-[10px] bg-gray-400" />
+            <div onClick={() => setGoogle(true)} className="w-[300px] h-[5%] flex justify-center items-center cursor-pointer border border-gray-900 rounded-[10px] hover:bg-gray-400">
+                <img src="/images/google.png" alt='' className='w-[25px h-[25px] mr-[10px]'/>
+                <span>Google 로그인</span>
+            </div>
+            <div onClick={() => setGithub(true)} className="w-[300px] h-[5%] flex justify-center items-center cursor-pointer border border-gray-900 rounded-[10px] hover:bg-gray-400">
+                <img src="/images/github.png" alt='' className='w-[25px h-[25px] mr-[10px] rounded-[50%]'/>
+                <span>Github 로그인</span>
+            </div>
+        </div>  
     </Layout>
   );
 }
